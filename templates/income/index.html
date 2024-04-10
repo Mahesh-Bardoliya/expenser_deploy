@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'income' %}">Expenser</a></li>
+      <li class="breadcrumb-item active" aria-current="page">My income</li>
+    </ol>
+  </nav>
+<h1>Income list </h1> <br>
+<a href="{% url 'add-income' %}" id="btnnnn" class="btn btn-info btn-md" >Add Income</a><br><br>
+<form method="post" action="{% url "import-income-csv" %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  
+  <div class="mb-3">
+    <label for="formFile" class="form-label">Import from csv file</label>
+    
+    <input   type="file" name="csv_file" class="form-control yey" accept=".csv" required>
+    <button type="submit"  id="btnnnn" class="btn btn-info btn-md mt-3" >Upload CSV</button>
+    <a href="{% url "export-income-csv" %} "   id="btnnnn" class="btn btn-info btn-md mt-3" >Export CSV</a>
+  </div>
+  
+  
+
+  
+  
+</form> 
+
+<div class="col-lg-15 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      {% if income.count %}
+      <h4 class="card-title">Your recent income </h4>
+      <div class="input-group">
+        <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+          <span class="input-group-text" id="search">
+            <i class="icon-search"></i>
+          </span>
+        </div>
+        <input type="text" class="form-control " id="searchField" placeholder="Search expenses" aria-label="search" aria-describedby="search">
+      </div>
+        <p class="card-description">
+          {% include "partials/_msgs.html" %}
+        </p>
+      <div class="table-responsive">
+        <div class="app-table">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Amount</th>
+              <th>Source</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for inco in income %}
+            <tr>
+              <td>{{inco.amount}}</td>
+              <td>{{inco.source}}</td>
+              <td>{{inco.description}}</td>
+              <td>{{inco.date}}</td>
+              <td><h3><a href="{% url 'income-edit' inco.id %}"><i class="mdi mdi-pencil-box text-primary "></i></a><a href="{% url "income-delete" inco.id %}"><i class="mdi mdi-delete-forever text-danger "></i></a></h3></label></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="table-output">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Amount</th>
+              <th>Source</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody class="table-body">
+            
+          </tbody>
+        </table>
+      </div>
+      </div>
+
+
+      {% else %}
+      <h4 class="card-title text-center mt-5 mb-5 text-black-50"><i class="mdi mdi-clipboard-text" style="font-size: 100px;"></i><br> Please add income now. Your income list is currently empty.</h4>       
+
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/incomeSearch.js' %}"></script>
+{% endblock content %}

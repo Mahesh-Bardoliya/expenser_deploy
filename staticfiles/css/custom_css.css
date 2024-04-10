@@ -1,0 +1,22 @@
+#btnnnn{
+    background-color: #0f6597; /* Green */
+
+} 
+input[type=file]::file-selector-button {
+    margin-right: 20px;
+    size:large;
+    font-weight: bold;
+    border: none;
+    background: #B7C9F2;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    color: #0a0a0a;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+  }
+  
+  input[type=file]::file-selector-button:hover {
+    background: #a5bfec;
+  }
+
+  

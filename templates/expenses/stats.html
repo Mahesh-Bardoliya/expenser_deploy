@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+ {% block content %}
+ {% load static %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Expenser</a></li>
+    <li class="breadcrumb-item active" aria-current="page">My expenses</li>
+  </ol>
+</nav>
+<div class="col-lg-15 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <p class="card-description">{% include "partials/_msgs.html" %}</p>
+      <div class="chartjs-size-monitor">
+        <div class="chartjs-size-monitor-expand"><div class=""></div></div>
+        <div class="chartjs-size-monitor-shrink"><div class=""></div></div>
+      </div>
+      <h4 class="card-title">Expenses</h4>
+      <div>
+        
+            <div class="mt-2 mb-2">
+                Select Chart Type
+          <select
+            class="btn btn-sm btn-light border-dark bg-white dropdown-toggle"
+            type="button"
+            id="dropdownMenuDate2"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="true"
+            onChange="myNewFunction(this.selectedIndex);"
+          >
+            <option value="" class="dropdown-header" selected disabled hidden>Chart type</option>
+            <option value="D" class="dropdown-item">Doughnut</option>
+            <option value="B" class="dropdown-item">Bar</option>
+            <option value="L" class="dropdown-item">Line</option> 
+            <option value="Bu" class="dropdown-item">Bubble</option>
+          </select>
+           From: <input type="date" value="{{values.date}}" class="btn btn-sm btn-light border-dark bg-white dropdown-toggle" id="from_date"  name="from_date"/>
+           To: <input type="date" value="{{values.date}}" class="btn btn-sm btn-light border-dark bg-white dropdown-toggle" id="to_date" name="to_date"/>
+           <button type="button" onClick="getChartData()" class="btn btn-sm btn-primary" id="myBtn" >Sumbit</button>
+        </div>
+      </div>
+      <canvas
+        id="myChart"
+        width="800"
+        height="336"
+        style="display: block; height: 269px; width: 539px"
+        class="chartjs-render-monitor"
+      ></canvas>
+      
+    </div>
+  </div>
+</div>
+<script src="{% static 'js/stats.js' %}"></script>
+
+{% endblock content %}
